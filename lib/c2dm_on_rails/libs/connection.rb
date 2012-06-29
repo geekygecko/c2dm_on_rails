@@ -6,7 +6,7 @@ module C2dm
   module Connection
     
     class << self
-      def send_notification(noty, token)
+      def send_notification(noty)
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
                     "Authorization" => "key=#{configatron.c2dm.api_key}" }
 
