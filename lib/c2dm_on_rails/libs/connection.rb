@@ -8,7 +8,7 @@ module C2dm
     class << self
       def send_notification(noty, token)
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
-                    "Authorization" => "GoogleLogin auth=#{token}" }
+                    "Authorization" => "key=#{configatron.c2dm.api_key}" }
 
         message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
         data = "registration_id=#{noty.device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
