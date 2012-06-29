@@ -1,4 +1,3 @@
-require 'gdata'
 require 'net/https'
 require 'uri'
 

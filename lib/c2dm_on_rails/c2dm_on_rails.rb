@@ -1,5 +1,4 @@
 require 'configatron'
-require 'gdata'
 require 'uri'
 
 module C2dm # :nodoc:
