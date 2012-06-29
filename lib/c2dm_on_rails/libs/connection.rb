@@ -1,4 +1,4 @@
-require 'gdata'
+require 'gdata_19'
 require 'net/https'
 require 'uri'
 
@@ -8,10 +8,10 @@ module C2dm
     class << self
       def send_notification(noty)
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
-                    "Authorization" => "key=#{configatron.c2dm.api_key}" }
+                    "Authorization" => "key=#{configatron.c2dm.api_key.strip}" }
 
         message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
-        data = "registration_id=#{noty.device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
+        data = "registration_id=#{noty.device.registration_id.strip}&collapse_key=#{noty.collapse_key}#{message_data}"
 
         data = data + "&delay_while_idle" if noty.delay_while_idle
 

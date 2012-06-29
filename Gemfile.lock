@@ -17,5 +17,5 @@ PLATFORMS
 
 DEPENDENCIES
   configatron
-  gdata
+  gdata_19
   jeweler
