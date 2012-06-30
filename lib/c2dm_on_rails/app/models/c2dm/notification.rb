@@ -20,9 +20,7 @@ class C2dm::Notification < C2dm::Base
   
   include ::ActionView::Helpers::TextHelper
   extend ::ActionView::Helpers::TextHelper
-  serialize :data
-  
-  
+  serialize :data, Hash
   
   belongs_to :device, :class_name => 'C2dm::Device'
   

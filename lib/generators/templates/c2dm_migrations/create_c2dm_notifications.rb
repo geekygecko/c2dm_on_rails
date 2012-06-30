@@ -7,6 +7,7 @@ class CreateC2dmNotifications < ActiveRecord::Migration # :nodoc:
       t.string :collapse_key, :null => false
       t.text :data
       t.boolean :delay_while_idle
+      t.integer :time_to_live
       t.datetime :sent_at
       t.timestamps
     end
