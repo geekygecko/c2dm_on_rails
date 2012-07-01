@@ -34,12 +34,12 @@ module C2dm
                     "Authorization" => "key=#{configatron.c2dm.api_key.strip}" }
         
         data_hash = {
-          "collapse_key" => notification.collapse_key.strip,
           "data" => notification.data,
           "registration_ids" => registration_ids
         }
-        data_hash["delay_while_idle"] = notification.delay_while_idle if notification.delay_while_idle
-        data_hash["time_to_live"] = notification.time_to_live if notification.time_to_live
+        data_hash["collapse_key"] = notification.collapse_key.strip if notification.collapse_key.present?
+        data_hash["delay_while_idle"] = notification.delay_while_idle if notification.delay_while_idle.present?
+        data_hash["time_to_live"] = notification.time_to_live if notification.time_to_live.present?
         
         data = data_hash.to_json
 
