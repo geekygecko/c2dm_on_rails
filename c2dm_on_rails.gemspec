@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "c2dm_on_rails"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Julius de Bruijn"]
-  s.date = "2012-06-30"
+  s.date = "2012-07-04"
   s.description = "C2DM on Rails is a Ruby on Rails gem that allows you to\neasily add Android Cloud to Device Messaging support to your Rails application.\n"
   s.email = "julius.debruijn@digia.com"
   s.extra_rdoc_files = [
@@ -29,6 +29,9 @@ Gem::Specification.new do |s|
     "lib/c2dm_on_rails.rb",
     "lib/c2dm_on_rails/app/models/c2dm/base.rb",
     "lib/c2dm_on_rails/app/models/c2dm/device.rb",
+    "lib/c2dm_on_rails/app/models/c2dm/device_grouping.rb",
+    "lib/c2dm_on_rails/app/models/c2dm/group.rb",
+    "lib/c2dm_on_rails/app/models/c2dm/group_notification.rb",
     "lib/c2dm_on_rails/app/models/c2dm/notification.rb",
     "lib/c2dm_on_rails/c2dm_on_rails.rb",
     "lib/c2dm_on_rails/libs/connection.rb",
@@ -36,6 +39,7 @@ Gem::Specification.new do |s|
     "lib/c2dm_on_rails_tasks.rb",
     "lib/generators/c2dm_migrations_generator.rb",
     "lib/generators/templates/c2dm_migrations/create_c2dm_devices.rb",
+    "lib/generators/templates/c2dm_migrations/create_c2dm_groups.rb",
     "lib/generators/templates/c2dm_migrations/create_c2dm_notifications.rb"
   ]
   s.homepage = "http://github.com/pimeys/c2dm_on_rails"
