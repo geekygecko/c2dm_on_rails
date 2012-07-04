@@ -12,7 +12,7 @@ class CreateC2dmGroups < ActiveRecord::Migration # :nodoc:
     
     create_table :c2dm_group_notifications do |t|
       t.integer :group_id, :null => false
-      t.string :collapse_key, :null => false
+      t.string :collapse_key
       t.text :data
       t.boolean :delay_while_idle
       t.integer :time_to_live

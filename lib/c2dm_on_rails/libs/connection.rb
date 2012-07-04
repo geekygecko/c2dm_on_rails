@@ -43,7 +43,7 @@ module C2dm
         
         data = data_hash.to_json
 
-        logger.info "Sending data: #{data}"
+        #logger.info "Sending data: #{data}"
 
         url_string = configatron.c2dm.api_url
         url=URI.parse url_string
