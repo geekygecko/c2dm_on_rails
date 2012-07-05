@@ -17,9 +17,11 @@ class C2dm::Group < C2dm::Base
       
       # api only allows you to send to 1000 devices at once
       self.devices.select("registration_id").find_in_batches(:batch_size => 1000) do |device_batch|
-        devices_exist = true unless devices_exist
         registration_ids = device_batch.collect { |device| device.registration_id }
         next if registration_ids.blank?
+        
+        devices_exist = true unless devices_exist
+        
         logger.info "sending notification #{notification.id} to devices #{registration_ids}"
         response = C2dm::Connection.send_group_notification(notification, registration_ids)
         logger.info "response: #{response[:code]}; #{response.inspect}"
