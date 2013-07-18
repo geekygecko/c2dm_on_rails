@@ -4,8 +4,8 @@ class C2dm::Group < C2dm::Base
   has_many   :device_groupings, :class_name => "C2dm::DeviceGrouping", :dependent => :destroy
   has_many   :devices, :class_name => 'C2dm::Device', :through => :device_groupings
   has_many   :group_notifications, :class_name => 'C2dm::GroupNotification'
-  has_many   :unsent_group_notifications, -> { where(sent_at: nil) }, :class_name => 'C2dm::GroupNotification'
-  
+  has_many   :unsent_group_notifications, :class_name => 'C2dm::GroupNotification', :conditions => 'sent_at is null'
+    
   validates_uniqueness_of :name
  
   def send_notifications()
