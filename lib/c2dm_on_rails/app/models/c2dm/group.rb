@@ -1,37 +1,37 @@
 class C2dm::Group < C2dm::Base
   self.table_name= "c2dm_groups"
-  
+
   has_many   :device_groupings, :class_name => "C2dm::DeviceGrouping", :dependent => :destroy
   has_many   :devices, :class_name => 'C2dm::Device', :through => :device_groupings
   has_many   :group_notifications, :class_name => 'C2dm::GroupNotification'
-  has_many   :unsent_group_notifications, :class_name => 'C2dm::GroupNotification', :conditions => 'sent_at is null'
-    
+  has_many   :unsent_group_notifications, -> { where(sent_at: nil) }, :class_name => 'C2dm::GroupNotification'
+
   validates_uniqueness_of :name
- 
+
   def send_notifications()
     return if self.unsent_group_notifications.nil?
-          
+
     self.unsent_group_notifications.each do |notification|
-      
+
       devices_exist = false
-      
+
       # api only allows you to send to 1000 devices at once
       self.devices.select("registration_id").find_in_batches(:batch_size => 1000) do |device_batch|
         registration_ids = device_batch.collect { |device| device.registration_id }
         next if registration_ids.blank?
-        
+
         devices_exist = true unless devices_exist
-        
+
         logger.info "sending notification #{notification.id} to devices #{registration_ids}"
         response = C2dm::Connection.send_group_notification(notification, registration_ids)
         logger.info "response: #{response[:code]}; #{response.inspect}"
         if response[:code] == 200
-          
+
           notification.sent_at = Time.now
           notification.save!
-          
+
           # TODO figure out how to handle the response correctly
-          
+
           case response[:message]
           when "Error=QuotaExceeded"
             raise C2dm::Errors::QuotaExceeded.new(response[:message])
@@ -63,14 +63,13 @@ class C2dm::Group < C2dm::Base
         else
         end
       end
-      
+
       # mark the notification as sent if no devices are associated
       unless devices_exist
         notification.sent_at = Time.now
         notification.save!
       end
-      
+
     end
   end
 end
-
