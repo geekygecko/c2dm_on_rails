@@ -16,7 +16,7 @@ class C2dm::Group < C2dm::Base
       devices_exist = false
 
       # api only allows you to send to 1000 devices at once
-      self.devices.select("id,registration_id").find_in_batches(:batch_size => 1000) do |device_batch|
+      self.devices.select("c2dm_devices.id,c2dm_devices.registration_id").find_in_batches(:batch_size => 1000) do |device_batch|
         registration_ids = device_batch.collect { |device| device.registration_id }
         next if registration_ids.blank?
 
